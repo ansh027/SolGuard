@@ -35,7 +35,8 @@ export async function POST(request) {
     // Parse JSON from Claude's response
     let analysis;
     try {
-      const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+      const cleanText = responseText.replace(/```json/gi, '').replace(/```/g, '');
+      const jsonMatch = cleanText.match(/\{[\s\S]*\}/);
       analysis = jsonMatch ? JSON.parse(jsonMatch[0]) : { riskLevel: 'safe', score: 80, summary: 'Unable to parse analysis', details: responseText, flags: [], recommendation: 'Review manually' };
     } catch {
       analysis = {

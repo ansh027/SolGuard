@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import WalletOverview from '../components/WalletOverview';
 import SecurityScore from '../components/SecurityScore';
 import TransactionList from '../components/TransactionList';
+import SimulatorPanel from '../components/SimulatorPanel';
 import { fetchTransactions, fetchBalance, fetchTokenAccounts } from '@/lib/solana';
 import { generateSecurityScore } from '@/lib/claude';
 import { RefreshCw } from 'lucide-react';
@@ -97,7 +98,10 @@ export default function Dashboard() {
           </button>
         </div>
 
-        {/* Top Row: Wallet Overview + Security Score */}
+        {/* Protector Simulator */}
+        <SimulatorPanel />
+
+        {/* Top Row: Wallet Overview + SecurityScore */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 2fr) minmax(240px, 1fr)',
