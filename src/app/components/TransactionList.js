@@ -7,6 +7,7 @@ import { analyzeTransaction } from '@/lib/claude';
 import RiskBadge from './RiskBadge';
 import AnalysisPanel from './AnalysisPanel';
 import { ExternalLink, Search, Loader2, ArrowUpDown } from 'lucide-react';
+import UpgradePrompt from './UpgradePrompt';
 
 export default function TransactionList() {
   const { publicKey, connected } = useWallet();
@@ -16,6 +17,7 @@ export default function TransactionList() {
   const [analyzing, setAnalyzing] = useState(null); // signature being analyzed
   const [analyses, setAnalyses] = useState({}); // signature -> analysis
   const [selectedAnalysis, setSelectedAnalysis] = useState(null);
+  const [showUpgrade, setShowUpgrade] = useState(false);
 
   useEffect(() => {
     if (!connected || !publicKey) return;
@@ -44,6 +46,10 @@ export default function TransactionList() {
         ...tx,
         detail,
       });
+      if (result?.error === 'rate_limit') {
+        setShowUpgrade(true);
+        return;
+      }
       setAnalyses((prev) => ({ ...prev, [sig]: result }));
       setSelectedAnalysis(result);
     } catch (err) {
@@ -190,6 +196,8 @@ export default function TransactionList() {
           to { transform: rotate(360deg); }
         }
       `}</style>
+
+      {showUpgrade && <UpgradePrompt onClose={() => setShowUpgrade(false)} />}
     </>
   );
 }

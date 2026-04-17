@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { NextResponse } from 'next/server';
 import { SCORE_SYSTEM_PROMPT } from '@/lib/claude';
+import { checkRateLimit } from '@/lib/rateLimit';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -12,6 +13,16 @@ export async function POST(request) {
 
     if (!wallet) {
       return NextResponse.json({ error: 'No wallet data provided' }, { status: 400 });
+    }
+
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    const { allowed, usage, limit } = checkRateLimit(ip);
+    if (!allowed) {
+      return NextResponse.json({
+        error: 'rate_limit',
+        message: `Free tier limit reached (${limit} analyses/day). Upgrade to Pro for unlimited access.`,
+        usage, limit,
+      }, { status: 429 });
     }
 
     if (!process.env.ANTHROPIC_API_KEY) {

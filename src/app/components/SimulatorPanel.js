@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ShieldCheck, ShieldAlert, ShieldX, RefreshCw, ArrowDownCircle, ArrowUpCircle, Cpu } from 'lucide-react';
+import UpgradePrompt from './UpgradePrompt';
 
 export default function SimulatorPanel() {
   const [input, setInput] = useState('');
@@ -9,6 +10,7 @@ export default function SimulatorPanel() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showUpgrade, setShowUpgrade] = useState(false);
 
   const simulate = async () => {
     if (!input.trim()) return;
@@ -22,8 +24,12 @@ export default function SimulatorPanel() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ input: input.trim(), type }),
       });
-      if (!res.ok) throw new Error('Simulation failed');
       const data = await res.json();
+      if (res.status === 429 || data.error === 'rate_limit') {
+        setShowUpgrade(true);
+        return;
+      }
+      if (!res.ok) throw new Error('Simulation failed');
       setResult(data);
     } catch {
       setError('Simulation failed. Please try again.');
@@ -45,6 +51,7 @@ export default function SimulatorPanel() {
   };
 
   return (
+    <>
     <div className="glass-card fade-in" style={{ padding: '20px', marginBottom: '16px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
         <Cpu size={16} color="var(--warning)" />
@@ -217,5 +224,8 @@ export default function SimulatorPanel() {
         </div>
       )}
     </div>
+
+    {showUpgrade && <UpgradePrompt onClose={() => setShowUpgrade(false)} />}
+    </>
   );
 }

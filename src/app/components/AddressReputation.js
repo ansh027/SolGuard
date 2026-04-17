@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import { Search, ShieldCheck, ShieldAlert, ShieldX, RefreshCw } from 'lucide-react';
+import UpgradePrompt from './UpgradePrompt';
 
 export default function AddressReputation() {
   const [address, setAddress] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showUpgrade, setShowUpgrade] = useState(false);
 
   const checkReputation = async () => {
     if (!address.trim()) return;
@@ -22,8 +24,12 @@ export default function AddressReputation() {
         body: JSON.stringify({ address: address.trim() }),
       });
 
-      if (!res.ok) throw new Error('Failed to check reputation');
       const data = await res.json();
+      if (res.status === 429 || data.error === 'rate_limit') {
+        setShowUpgrade(true);
+        return;
+      }
+      if (!res.ok) throw new Error('Failed to check reputation');
       setResult(data);
     } catch (err) {
       setError('Failed to check address. Please try again.');
@@ -52,6 +58,7 @@ export default function AddressReputation() {
   };
 
   return (
+    <>
     <div className="glass-card fade-in" style={{ padding: '20px', marginBottom: '16px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
         <Search size={16} color="var(--info)" />
@@ -141,5 +148,8 @@ export default function AddressReputation() {
         </div>
       )}
     </div>
+
+    {showUpgrade && <UpgradePrompt onClose={() => setShowUpgrade(false)} />}
+    </>
   );
 }
