@@ -1,4 +1,5 @@
 import Providers from './Providers';
+import MainnetWarning from './components/MainnetWarning';
 import './globals.css';
 
 export const metadata = {
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Providers>
+          <MainnetWarning />
           {children}
         </Providers>
       </body>

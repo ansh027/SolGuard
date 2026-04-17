@@ -5,10 +5,12 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { Shield } from 'lucide-react';
 import Link from 'next/link';
+import { useNetwork } from '../context/NetworkContext';
 
 export default function Navbar() {
   const { connected } = useWallet();
   const [mounted, setMounted] = useState(false);
+  const { network, toggleNetwork } = useNetwork();
 
   useEffect(() => {
     setMounted(true);
@@ -68,6 +70,33 @@ export default function Navbar() {
             Dashboard
           </Link>
         )}
+
+        {/* Network Toggle */}
+        {mounted && (
+          <button
+            onClick={toggleNetwork}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '5px 12px',
+              borderRadius: '99px',
+              border: `1px solid ${network === 'mainnet' ? 'var(--safe)' : 'var(--border)'}`,
+              background: network === 'mainnet' ? 'rgba(29, 158, 117, 0.1)' : 'var(--bg-primary)',
+              color: network === 'mainnet' ? 'var(--safe)' : 'var(--text-muted)',
+              fontSize: '12px',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+            }}
+          >
+            <span style={{
+              width: '6px', height: '6px', borderRadius: '50%',
+              background: network === 'mainnet' ? 'var(--safe)' : 'var(--warning)',
+            }}></span>
+            {network === 'mainnet' ? 'Mainnet' : 'Devnet'}
+          </button>
+        )}
+
         {mounted && <WalletMultiButton />}
       </div>
     </nav>
