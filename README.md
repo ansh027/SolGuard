@@ -5,21 +5,21 @@
 ![Claude AI](https://img.shields.io/badge/Claude-AI-orange?style=for-the-badge)
 ![Vercel](https://img.shields.io/badge/Deployed-Vercel-black?style=for-the-badge&logo=vercel)
 
-> Built for the **Solana Frontier Hackathon 2026** by [@sansh07](https://github.com/ansh027)
+> Built for the Solana Frontier Hackathon 2026 by [@sansh07](https://github.com/ansh027)
 
-**SolGuard** uses Claude AI to analyze your Solana transactions, detect threats, and keep your assets safe — in plain English, not technical jargon.
+SolGuard uses Claude AI to analyze your Solana transactions, detect threats, and keep your assets safe — in plain English, not technical jargon.
 
-🔗 **Live Demo:** [sol-guard-khaki.vercel.app](https://sol-guard-khaki.vercel.app)
+🔗 Live Demo: [sol-guard-khaki.vercel.app](https://sol-guard-khaki.vercel.app)
 
 ---
 
 ## The Problem
 
 Every day, Solana users lose millions of dollars to:
-- **Wallet drainers** disguised as legitimate dApps
-- **Rug pulls** from unknown smart contracts
-- **Forgotten token approvals** giving dApps unlimited access to funds
-- **Phishing addresses** that look legitimate but steal assets
+- Wallet drainers disguised as legitimate dApps
+- Rug pulls from unknown smart contracts
+- Forgotten token approvals giving dApps unlimited access to funds
+- Phishing addresses that look legitimate but steal assets
 
 Most users have no way to verify what a transaction will actually do before signing it.
 
@@ -27,7 +27,7 @@ Most users have no way to verify what a transaction will actually do before sign
 
 ## The Solution
 
-SolGuard acts as an **AI security layer** between users and the Solana blockchain. Before you sign anything, SolGuard tells you exactly what will happen — in plain English.
+SolGuard acts as an AI security layer between users and the Solana blockchain. Before you sign anything, SolGuard tells you exactly what will happen — in plain English.
 
 ---
 
@@ -62,14 +62,14 @@ AI-generated insights about your wallet's security posture — what you're doing
 
 | Technology | Purpose |
 |---|---|
-| **Next.js 16** | Frontend framework |
-| **React 18** | UI components |
-| **Tailwind CSS** | Styling |
-| **Solana Web3.js** | Blockchain interaction |
-| **Solana Wallet Adapter** | Wallet connection (Phantom) |
-| **@solana/spl-token** | Token account management |
-| **Anthropic Claude API** | AI analysis engine |
-| **Vercel** | Deployment |
+| Next.js 16 | Frontend framework |
+| React 18 | UI components |
+| Tailwind CSS | Styling |
+| Solana Web3.js | Blockchain interaction |
+| Solana Wallet Adapter | Wallet connection (Phantom) |
+| @solana/spl-token | Token account management |
+| Anthropic Claude API | AI analysis engine |
+| Vercel | Deployment |
 
 ---
 
@@ -137,7 +137,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Connect Wallet
 1. Install [Phantom Wallet](https://phantom.app) browser extension
-2. Switch Phantom to **Devnet** network
+2. Switch Phantom to Devnet network
 3. Click "Select Wallet" on the landing page
 4. Approve the connection
 
@@ -161,9 +161,9 @@ Beautiful UI renders results in real-time
 ```
 
 ### Security Design
-- **API key never exposed** — all Claude calls happen server-side via Next.js API routes
-- **No user data stored** — all analysis is done in real-time, nothing is saved
-- **Devnet by default** — safe to test without risking real funds
+- API key never exposed — all Claude calls happen server-side via Next.js API routes
+- No user data stored — all analysis is done in real-time, nothing is saved
+- Devnet by default — safe to test without risking real funds
 
 ---
 
@@ -216,11 +216,11 @@ src/
 
 ## Hackathon
 
-Built for the **[Solana Frontier Hackathon 2026](https://colosseum.com/frontier)** powered by Colosseum.
+Built for the [Solana Frontier Hackathon 2026](https://colosseum.com/frontier) powered by Colosseum.
 
-**Track:** AI Agent
+Track: AI Agent
 
-**Builder:** Ansh Singh ([@sansh07](https://github.com/ansh027)) — Solo
+Builder: Ansh Singh ([@sansh07](https://github.com/ansh027)) — Solo
 
 ---
 
