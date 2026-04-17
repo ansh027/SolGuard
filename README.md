@@ -40,8 +40,8 @@ Get an overall wallet health score (0-100) powered by Claude AI. Analyzes your t
 Click "Analyze" on any transaction in your history. Claude AI breaks down exactly what happened, flags suspicious patterns, and rates the risk level from Safe to Critical.
 
 ### ⚡ Pre-Transaction Simulator
-Before signing anything, paste a contract address or unsigned transaction. SolGuard simulates it and shows you:
-- Exact SOL balance changes
+Before signing anything, paste a contract address or unsigned transaction. SolGuard runs it through Solana's native simulateTransaction RPC for mathematically accurate results, then Claude AI translates the verified logs into a human-readable report:
+- Exact SOL balance changes (from real simulation)
 - Token movements (in/out)
 - Programs that will be called
 - Any approvals being granted
@@ -51,7 +51,7 @@ Before signing anything, paste a contract address or unsigned transaction. SolGu
 See every token approval your wallet has granted to dApps. Revoke risky or forgotten approvals with one click — directly from the dashboard.
 
 ### 🕵️ Address Reputation Checker
-Paste any Solana wallet or contract address and get an instant reputation score. Claude AI checks for known scammer patterns, suspicious naming conventions, and malicious indicators.
+Paste any Solana wallet or contract address and get an instant reputation score. SolGuard first calls getAccountInfo to deterministically verify if the address is a program or wallet, its balance, owner, and data size — then Claude AI layers contextual risk analysis on top of these verified facts.
 
 ### 📊 Risk Insights & Positive Findings
 AI-generated insights about your wallet's security posture — what you're doing right and what needs attention.
