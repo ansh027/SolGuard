@@ -1,4 +1,5 @@
-import { LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { LAMPORTS_PER_SOL, Transaction } from '@solana/web3.js';
+import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 /**
  * Format a wallet address for display (e.g. "7nYB...x4Kp")
@@ -118,4 +119,52 @@ export function formatTimestamp(blockTime) {
  */
 export function getExplorerUrl(signature, cluster = 'devnet') {
   return `https://explorer.solana.com/tx/${signature}?cluster=${cluster}`;
+}
+
+/**
+ * Fetch all token accounts with active delegate approvals
+ */
+export async function getTokenApprovals(connection, publicKey) {
+  const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
+    programId: TOKEN_PROGRAM_ID,
+  });
+
+  const approvals = [];
+  for (const { account } of tokenAccounts.value) {
+    const info = account.data.parsed.info;
+    if (info.delegateOption === 1 && info.delegate) {
+      approvals.push({
+        mint: info.mint,
+        delegate: info.delegate,
+        amount: info.delegatedAmount?.uiAmount || 'Unknown',
+        tokenAccount: account,
+      });
+    }
+  }
+  return approvals;
+}
+
+/**
+ * Revoke a token approval
+ */
+export async function revokeTokenApproval(connection, publicKey, approval, sendTransaction) {
+  const { createRevokeInstruction, getAssociatedTokenAddress } = await import('@solana/spl-token');
+  const { PublicKey } = await import('@solana/web3.js');
+
+  const tokenAccountAddress = await getAssociatedTokenAddress(
+    new PublicKey(approval.mint),
+    publicKey
+  );
+
+  const transaction = new Transaction().add(
+    createRevokeInstruction(tokenAccountAddress, publicKey)
+  );
+
+  const { blockhash } = await connection.getLatestBlockhash();
+  transaction.recentBlockhash = blockhash;
+  transaction.feePayer = publicKey;
+
+  const signature = await sendTransaction(transaction, connection);
+  await connection.confirmTransaction(signature, 'confirmed');
+  return signature;
 }

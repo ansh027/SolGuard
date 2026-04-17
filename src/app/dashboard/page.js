@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import WalletOverview from '../components/WalletOverview';
 import SecurityScore from '../components/SecurityScore';
+import TokenApprovalManager from '../components/TokenApprovalManager';
 import TransactionList from '../components/TransactionList';
 import SimulatorPanel from '../components/SimulatorPanel';
 import { fetchTransactions, fetchBalance, fetchTokenAccounts } from '@/lib/solana';
@@ -156,6 +157,9 @@ export default function Dashboard() {
             </ul>
           </div>
         )}
+
+        {/* Token Approval Manager */}
+        <TokenApprovalManager />
 
         {/* Transaction List */}
         <TransactionList />
