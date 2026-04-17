@@ -86,6 +86,12 @@ Paste any Solana wallet or contract address and get an instant reputation score.
 ### 📊 Risk Insights & Positive Findings
 AI-generated insights about your wallet's security posture — what you're doing right and what needs attention.
 
+### 🌐 Mainnet/Devnet Toggle
+Switch between Solana Devnet and Mainnet directly from the navbar. A safety warning modal appears when switching to Mainnet, reminding users they are viewing real funds. Powered by a shared NetworkContext that dynamically rewires the RPC endpoint across the entire app.
+
+### 💰 Usage Limiter & Pro Upgrade
+Free tier is capped at 10 AI analyses per session. After hitting the limit, users see a beautiful upgrade prompt with Pro plan features ($9/month). Rate limiting is enforced server-side across all 4 API routes, making the monetization story demonstrable to judges.
+
 ---
 
 ## Tech Stack
@@ -211,21 +217,27 @@ src/
 │   │   ├── SimulatorPanel.js
 │   │   ├── TokenApprovalManager.js
 │   │   ├── AddressReputation.js
+│   │   ├── MainnetWarning.js
+│   │   ├── UpgradePrompt.js
 │   │   └── RiskBadge.js
 │   ├── api/
 │   │   ├── analyze/route.js
 │   │   ├── score/route.js
 │   │   ├── simulate/route.js
 │   │   └── reputation/route.js
+│   ├── context/
+│   │   └── NetworkContext.js
 │   ├── dashboard/
 │   │   └── page.js
 │   ├── demo/
 │   │   └── page.js
 │   ├── layout.js
+│   ├── Providers.js
 │   └── page.js
 └── lib/
     ├── solana.js
-    └── claude.js
+    ├── claude.js
+    └── rateLimit.js
 ```
 
 ---
@@ -237,9 +249,10 @@ src/
 - [x] Pre-Transaction Simulator
 - [x] Token Approval Manager
 - [x] Address Reputation Checker
+- [x] Mainnet/Devnet Toggle
+- [x] Usage Limiter & Pro Upgrade Prompt
 - [ ] Real-time wallet monitoring alerts
 - [ ] Multi-wallet support
-- [ ] Mainnet support
 - [ ] Mobile app (Solana Mobile SDK)
 
 ---
