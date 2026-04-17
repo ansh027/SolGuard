@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import WalletOverview from '../components/WalletOverview';
 import SecurityScore from '../components/SecurityScore';
 import TokenApprovalManager from '../components/TokenApprovalManager';
+import AddressReputation from '../components/AddressReputation';
 import TransactionList from '../components/TransactionList';
 import SimulatorPanel from '../components/SimulatorPanel';
 import { fetchTransactions, fetchBalance, fetchTokenAccounts } from '@/lib/solana';
@@ -160,6 +161,9 @@ export default function Dashboard() {
 
         {/* Token Approval Manager */}
         <TokenApprovalManager />
+
+        {/* Address Reputation Checker */}
+        <AddressReputation />
 
         {/* Transaction List */}
         <TransactionList />
