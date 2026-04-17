@@ -38,7 +38,7 @@ Analyze the input and return a JSON object exactly exactly like this (no other t
 
     const message = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: 1024,
+      max_tokens: 512,
       system: "You output only clean, raw JSON.",
       messages: [
         {

@@ -145,7 +145,7 @@ export default function TransactionList() {
                   {analyzing === tx.signature ? (
                     <>
                       <Loader2 size={14} className="spinning" style={{ animation: 'spin 1s linear infinite' }} />
-                      Analyzing...
+                      Analyzing with Claude AI...
                     </>
                   ) : analyses[tx.signature] ? (
                     <>

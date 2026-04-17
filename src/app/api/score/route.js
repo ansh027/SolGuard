@@ -20,7 +20,7 @@ export async function POST(request) {
 
     const message = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: 1024,
+      max_tokens: 512,
       system: SCORE_SYSTEM_PROMPT,
       messages: [
         {
