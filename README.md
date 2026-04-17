@@ -1,133 +1,236 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/Solana-Devnet-blueviolet?style=flat-square&logo=solana" alt="Solana Devnet" />
-  <img src="https://img.shields.io/badge/AI-Claude%20(Anthropic)-orange?style=flat-square" alt="Claude AI" />
-  <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js" alt="Next.js 16" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License" />
-</p>
+# SolGuard — AI-Powered Solana Wallet Protection
 
-# 🛡️ SolGuard
+![SolGuard](https://img.shields.io/badge/Solana-Devnet-9945FF?style=for-the-badge&logo=solana)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
+![Claude AI](https://img.shields.io/badge/Claude-AI-orange?style=for-the-badge)
+![Vercel](https://img.shields.io/badge/Deployed-Vercel-black?style=for-the-badge&logo=vercel)
 
-**AI-powered Solana wallet protection — detect threats before they drain your wallet.**
+> Built for the **Solana Frontier Hackathon 2026** by [@sansh07](https://github.com/ansh027)
 
-SolGuard connects to your Solana wallet, scans your transaction history, and uses **Claude AI** to analyze every transaction for security risks — from unverified program interactions to potential token drainers. You get a real-time security score, detailed risk breakdowns, and actionable recommendations.
+**SolGuard** uses Claude AI to analyze your Solana transactions, detect threats, and keep your assets safe — in plain English, not technical jargon.
 
----
-
-## ✨ Features
-
-| Feature | Description |
-|---------|-------------|
-| 🔍 **Transaction Scanner** | Fetches and displays your recent transactions with status, timestamps, and Solana Explorer links |
-| 🤖 **AI Risk Analysis** | One-click per-transaction analysis powered by Claude — returns risk level, safety score, flags, and recommendations |
-| 📊 **Security Score** | Overall wallet health score (0-100) with grade, risk insights, and positive findings |
-| 🎯 **Risk Badges** | Color-coded risk indicators (Safe / Low / Medium / High / Critical) on every analyzed transaction |
-| 📋 **Slide-in Analysis Panel** | Detailed AI analysis view with summary, risk flags, and actionable recommendations |
-| 🎮 **Demo Mode** | Full dashboard experience with simulated data — no wallet or API key needed |
+🔗 **Live Demo:** [sol-guard-khaki.vercel.app](https://sol-guard-khaki.vercel.app)
 
 ---
 
-## 🚀 Quick Start
+## The Problem
+
+Every day, Solana users lose millions of dollars to:
+- **Wallet drainers** disguised as legitimate dApps
+- **Rug pulls** from unknown smart contracts
+- **Forgotten token approvals** giving dApps unlimited access to funds
+- **Phishing addresses** that look legitimate but steal assets
+
+Most users have no way to verify what a transaction will actually do before signing it.
+
+---
+
+## The Solution
+
+SolGuard acts as an **AI security layer** between users and the Solana blockchain. Before you sign anything, SolGuard tells you exactly what will happen — in plain English.
+
+---
+
+## Features
+
+### 🛡️ AI Security Score
+Get an overall wallet health score (0-100) powered by Claude AI. Analyzes your transaction history, token holdings, and behavioral patterns to give you a comprehensive security grade.
+
+### 🔍 Transaction Analyzer
+Click "Analyze" on any transaction in your history. Claude AI breaks down exactly what happened, flags suspicious patterns, and rates the risk level from Safe to Critical.
+
+### ⚡ Pre-Transaction Simulator
+Before signing anything, paste a contract address or unsigned transaction. SolGuard simulates it and shows you:
+- Exact SOL balance changes
+- Token movements (in/out)
+- Programs that will be called
+- Any approvals being granted
+- Overall risk verdict
+
+### 🔐 Token Approval Manager
+See every token approval your wallet has granted to dApps. Revoke risky or forgotten approvals with one click — directly from the dashboard.
+
+### 🕵️ Address Reputation Checker
+Paste any Solana wallet or contract address and get an instant reputation score. Claude AI checks for known scammer patterns, suspicious naming conventions, and malicious indicators.
+
+### 📊 Risk Insights & Positive Findings
+AI-generated insights about your wallet's security posture — what you're doing right and what needs attention.
+
+---
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| **Next.js 16** | Frontend framework |
+| **React 18** | UI components |
+| **Tailwind CSS** | Styling |
+| **Solana Web3.js** | Blockchain interaction |
+| **Solana Wallet Adapter** | Wallet connection (Phantom) |
+| **@solana/spl-token** | Token account management |
+| **Anthropic Claude API** | AI analysis engine |
+| **Vercel** | Deployment |
+
+---
+
+## Architecture
+
+```
+Browser (Client)
+    ↓
+Landing Page → Connect Wallet → Dashboard
+    ↓
+Dashboard Components:
+  ├── Wallet Overview (web3.js)
+  ├── Security Score → /api/score → Claude AI
+  ├── Transaction List → /api/analyze → Claude AI
+  ├── Pre-Transaction Simulator → /api/simulate → Claude AI
+  ├── Token Approval Manager (spl-token)
+  └── Address Reputation Checker → /api/reputation → Claude AI
+
+Next.js API Routes (Server-side)
+    ↓
+Claude API (Anthropic) — API key never exposed to client
+    ↓
+Solana Devnet RPC
+```
+
+---
+
+## Getting Started
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) 18+
-- [Phantom Wallet](https://phantom.app/) browser extension (or any Solana wallet)
-- [Anthropic API Key](https://console.anthropic.com/) for AI analysis
+- Node.js 18+
+- Phantom Wallet browser extension
+- Anthropic API key
 
-### Setup
+### Installation
 
 ```bash
-# Clone the repository
+# Clone the repo
 git clone https://github.com/ansh027/SolGuard.git
 cd SolGuard
 
 # Install dependencies
-npm install
+npm install --legacy-peer-deps
 
-# Configure environment
-cp .env.local.example .env.local
-# Edit .env.local and add your Anthropic API key:
-# ANTHROPIC_API_KEY=sk-ant-your-key-here
+# Create environment file
+cp .env.example .env.local
+```
 
-# Start development server
+### Environment Variables
+
+Create a `.env.local` file in the root:
+
+```env
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+NEXT_PUBLIC_RPC_URL=https://api.devnet.solana.com
+```
+
+### Run Locally
+
+```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) — connect your wallet or click **Try Demo** to explore.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Connect Wallet
+1. Install [Phantom Wallet](https://phantom.app) browser extension
+2. Switch Phantom to **Devnet** network
+3. Click "Select Wallet" on the landing page
+4. Approve the connection
 
 ---
 
-## 🎮 Demo Mode
+## How It Works
 
-Judges and reviewers can see the full dashboard without any setup:
+### AI Analysis Flow
+```
+User connects wallet
+        ↓
+SolGuard fetches transaction history from Solana RPC
+        ↓
+Data sent to Next.js API route (server-side)
+        ↓
+Claude AI analyzes with specialized security prompts
+        ↓
+Structured JSON response: { riskLevel, score, summary, flags }
+        ↓
+Beautiful UI renders results in real-time
+```
 
-1. Visit `http://localhost:3000`
-2. Click **"Try Demo"** in the navbar or hero section
-3. Browse the dashboard with simulated wallet data
-4. Click **"Analyze"** on any transaction to see the AI analysis panel
+### Security Design
+- **API key never exposed** — all Claude calls happen server-side via Next.js API routes
+- **No user data stored** — all analysis is done in real-time, nothing is saved
+- **Devnet by default** — safe to test without risking real funds
 
 ---
 
-## 🏗️ Architecture
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── api/
-│   │   ├── analyze/route.js     # POST — Claude transaction analysis
-│   │   └── score/route.js       # POST — Claude wallet security scoring
 │   ├── components/
-│   │   ├── Navbar.js            # Navigation + wallet button
-│   │   ├── Hero.js              # Landing page hero section
-│   │   ├── FeatureCard.js       # Feature showcase cards
-│   │   ├── WalletOverview.js    # Balance, address, token count
-│   │   ├── SecurityScore.js     # Animated SVG score gauge
-│   │   ├── TransactionList.js   # TX history + per-TX analysis
-│   │   ├── RiskBadge.js         # Color-coded risk pills
-│   │   └── AnalysisPanel.js     # Slide-in AI analysis view
-│   ├── dashboard/page.js        # Main dashboard (wallet-gated)
-│   ├── demo/page.js             # Demo dashboard (mock data)
-│   ├── Providers.js             # Solana wallet providers
-│   ├── layout.js                # Root layout + SEO
-│   ├── page.js                  # Landing page
-│   └── globals.css              # Design system
+│   │   ├── Navbar.js
+│   │   ├── Hero.js
+│   │   ├── WalletOverview.js
+│   │   ├── SecurityScore.js
+│   │   ├── TransactionList.js
+│   │   ├── SimulatorPanel.js
+│   │   ├── TokenApprovalManager.js
+│   │   ├── AddressReputation.js
+│   │   └── RiskBadge.js
+│   ├── api/
+│   │   ├── analyze/route.js
+│   │   ├── score/route.js
+│   │   ├── simulate/route.js
+│   │   └── reputation/route.js
+│   ├── dashboard/
+│   │   └── page.js
+│   ├── demo/
+│   │   └── page.js
+│   ├── layout.js
+│   └── page.js
 └── lib/
-    ├── solana.js                # Blockchain data fetchers
-    ├── claude.js                # AI prompts + API wrappers
-    └── mockData.js              # Demo mode mock data
-```
-
-### Data Flow
-
-```
-User connects wallet ──→ Fetch balance, transactions, tokens (Solana RPC)
-                    ──→ Send wallet summary to /api/score ──→ Claude AI ──→ Security Score
-                    ──→ Click "Analyze" on a TX ──→ Fetch parsed TX details ──→ /api/analyze ──→ Claude AI ──→ Risk Analysis
+    ├── solana.js
+    └── claude.js
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## Roadmap
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16 (App Router) |
-| UI | React 19 + Lucide Icons |
-| Styling | Tailwind CSS v4 |
-| Blockchain | Solana web3.js + Wallet Adapter |
-| AI | Claude (Anthropic API) |
-| Network | Solana Devnet |
-
----
-
-## 🔒 Security Notes
-
-- **API key never exposed to client** — Claude calls happen server-side via Next.js API routes
-- `.env.local` is in `.gitignore` — secrets are never committed
-- Wallet connection is **read-only** — SolGuard never requests transaction signing permissions
-- All data stays in-browser — no user data is stored or logged
+- [x] AI Security Score
+- [x] Transaction Analyzer
+- [x] Pre-Transaction Simulator
+- [x] Token Approval Manager
+- [x] Address Reputation Checker
+- [ ] Real-time wallet monitoring alerts
+- [ ] Multi-wallet support
+- [ ] Mainnet support
+- [ ] Mobile app (Solana Mobile SDK)
 
 ---
 
-## 📄 License
+## Hackathon
 
-MIT — build on it, fork it, make it yours.
+Built for the **[Solana Frontier Hackathon 2026](https://colosseum.com/frontier)** powered by Colosseum.
+
+**Track:** AI Agent
+
+**Builder:** Ansh Singh ([@sansh07](https://github.com/ansh027)) — Solo
+
+---
+
+## License
+
+MIT License — see [LICENSE](LICENSE) for details.
+
+---
+
+<div align="center">
+  <strong>Built with Claude AI on Solana</strong><br/>
+  <sub>Protecting wallets, one transaction at a time.</sub>
+</div>
