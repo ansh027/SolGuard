@@ -31,6 +31,36 @@ SolGuard acts as an AI security layer between users and the Solana blockchain. B
 
 ---
 
+## Why SolGuard?
+
+| Feature | SolGuard | Blowfish | Pocket Universe | Step Finance |
+|---|---|---|---|---|
+| Plain English AI explanations | Claude AI | Approve/Reject only | Basic warnings | No |
+| Security Score | 0-100 grade | No | No | Basic |
+| Token Approval Manager | + Revoke | No | No | Yes |
+| Address Reputation | AI powered | No | Basic | No |
+| Pre-Transaction Simulation | simulateTransaction + AI | Yes | Yes | No |
+| Open Source | Yes | No | No | No |
+| Self-hostable | Yes | No | No | No |
+| Works as standalone app | Yes | Browser extension only | Browser extension only | Yes |
+
+---
+
+## Business Model
+
+| Tier | Price | What you get |
+|---|---|---|
+| Free | $0 | Devnet only, 10 AI analyses/day, basic security score |
+| Pro | $9/month | Mainnet, unlimited analyses, real-time alerts, API access |
+| Team | $29/month | Multiple wallets, team dashboard, priority support |
+
+Why this works:
+- 10 million+ active Solana wallets — even 0.1% converting to Pro = $9,000/month recurring revenue
+- B2B angle: sell to Solana dApps (DEXs, NFT marketplaces, lending protocols) who want to embed SolGuard's security scanner into their own UI before users sign transactions
+- Enterprise version for DAOs and DeFi protocols managing large treasuries
+
+---
+
 ## Features
 
 ### 🛡️ AI Security Score
